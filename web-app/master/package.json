@@ -68,5 +68,9 @@
     "terser-webpack-plugin": "^4.2.3",
     "xlsx": "^0.16.9",
     "xlsx-with-styles": "^0.17.2"
+  },
+  "engines": {
+    "npm": ">=5.0.0 <=6.14.4",
+    "node": ">=12.0.0 <=12.22.12"
   }
 }

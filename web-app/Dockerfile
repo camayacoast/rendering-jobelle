@@ -1,4 +1,4 @@
-FROM php:7.4-fpm-alpine
+FROM php:7.4-fpm-alpine3.12
 
 ARG UID
 ARG GID
@@ -13,7 +13,7 @@ WORKDIR /var/www/html
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 # Copy package.json and package-lock.json
-COPY package*.json ./
+#COPY package*.json ./
 
 
 # MacOS staff group's gid is 20, so is the dialout group in alpine linux. We're not using it, let's just remove it.
@@ -62,12 +62,12 @@ RUN apk --update --no-cache add \
 RUN apk add --no-cache bash
 
 # # Install Node.js
-RUN apk add --update nodejs npm && \
-    npm install -g n && \
-    n 12.16.2
+RUN apk add --no-cache nodejs npm
 
+#RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.12/main/ nodejs=12.22.12-r0 npm=12.22.12-r0
+#RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.12/main/ nodejs=12.22.12-r0 npm=12.22.12-r0
 # Change ownership of the Node.js directories to laravel user
-RUN chown -R laravel:laravel /usr/local/lib/node_modules /usr/local/bin /usr/local/share /usr/local/n
+#RUN chown -R laravel:laravel /usr/local/lib/node_modules /usr/local/bin /usr/local/share /usr/local/n
 
 # After copying your application's source code and before switching to the non-root user
 RUN chown -R laravel:laravel /var/www/html
